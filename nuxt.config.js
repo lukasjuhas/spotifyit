@@ -1,5 +1,10 @@
 export default {
   mode: 'universal',
+
+  env: {
+    SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+  },
+
   /*
    ** Headers of the page
    */
@@ -34,11 +39,12 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/dotenv',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
   ],
+
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

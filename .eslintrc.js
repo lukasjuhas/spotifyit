@@ -1,23 +1,26 @@
 module.exports = {
-  root: true,
-  env: {
-    browser: true,
-    node: true
-  },
-  parserOptions: {
-    parser: 'babel-eslint'
-  },
   extends: [
-    '@nuxtjs',
-    'plugin:nuxt/recommended',
-    'plugin:prettier/recommended',
-    'prettier',
-    'prettier/vue'
+    'airbnb-base',
+    'plugin:vue/recommended',
   ],
   plugins: [
-    'prettier'
+    'import',
+    'vue',
   ],
-  // add your custom rules here
+  parserOptions: {
+    parser: 'babel-eslint',
+    ecmaVersion: 8,
+    sourceType: 'module'
+  },
   rules: {
-  }
-}
+    strict: 'error',
+    'import/extensions': ['error', 'always', {
+      js: 'never',
+      vue: 'never'
+    }],
+    'no-param-reassign': 0,
+    'no-return-assign': ['error', 'always'],
+    'func-names': ['error', 'never'],
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+  },
+};

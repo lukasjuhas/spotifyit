@@ -19,7 +19,10 @@ export default {
     });
 
     await this.$store.commit('code', params.access_token);
-    await this.$router.push('/');
+
+    this.$nextTick(() => {
+      this.$router.push('/');
+    });
   },
 };
 </script>

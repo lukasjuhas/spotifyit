@@ -1,3 +1,27 @@
+import leven from 'leven';
+
+const getTrack = (response, query) => {
+  if (typeof response.tracks !== 'undefined') {
+    // take the important parts and calculate levensthein distance
+    const tracks = response.tracks.items.map((item, key) => ({
+      key,
+      name: item.name,
+      id: item.id,
+      levenshteinDistance: leven(query, item.name),
+    }));
+
+    // sort tracks by levenshtein distance
+    tracks.sort((a, b) => a.levenshteinDistance - b.levenshteinDistance);
+
+    // take the first one
+    const track = tracks[0];
+
+    return track;
+  }
+
+  return null;
+};
+
 export const state = () => ({
   result: {},
   code: null,
@@ -36,7 +60,8 @@ export const actions = {
         },
       );
 
-      console.log(response);
+      const track = getTrack(response, query);
+      console.log('track', track);
       // commit('operator', response);
 
       return response;

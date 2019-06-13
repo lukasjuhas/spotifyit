@@ -29,9 +29,9 @@ export default {
 
           // do a search
           this.$store.dispatch('search', this.$store.getters.query).then(() => {
-            this.$toast.success('I\'m done!');
+            this.$toast.success('All done!');
 
-            this.$router.push('/');
+            this.$router.push('/playlist');
           }).catch((e) => {
             this.$toast.error(e);
             this.$router.push('/');

@@ -51,6 +51,20 @@
       >
         Create my playlist
       </button>
+
+      <div
+        v-if="playlistUrl"
+        class="py-6"
+      >
+        Your playlist url:
+        <a
+          :href="playlistUrl"
+          target="_blank"
+          class="text-blue-700 underline mb-6"
+        >
+          {{ playlistUrl }}
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -62,11 +76,13 @@ export default {
   data() {
     return {
       items: [],
+      playlistUrl: null,
     };
   },
 
   mounted() {
     this.items = this.$store.getters.tracks;
+    this.playlistUrl = this.$store.getters.playlist.external_urls.spotify;
   },
 
   methods: {
@@ -74,6 +90,8 @@ export default {
       this.$store.dispatch('createPlaylist').then(() => {
         this.$toast.success('Your playlist was created and added to your librabry.');
         this.$toast.show('Adding tracks to the playlist...');
+
+        this.playlistUrl = this.$store.getters.playlist.external_urls.spotify;
 
         this.$store.dispatch('addTracksToPlaylist').then(() => {
           this.$toast.success('Tracks added to your playlist.');

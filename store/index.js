@@ -63,11 +63,15 @@ export const mutations = {
   clearPopped(localState) {
     localState.popped = [];
   },
-  playlist(localState, id) {
-    localState.playlist = id;
+  playlist(localState, playlist) {
+    localState.playlist = playlist;
   },
   playlistSnapshotId(localState, playlistSnapshotId) {
     localState.playlistSnapshotId = playlistSnapshotId;
+  },
+  clearPlaylist(localState) {
+    localState.playlist = {};
+    localState.playlistSnapshotId = null;
   },
 };
 
@@ -207,6 +211,7 @@ export const actions = {
 };
 
 export const getters = {
-  tracks: tracksState => tracksState.tracks,
-  query: queryState => queryState.query,
+  tracks: localState => localState.tracks,
+  query: localState => localState.query,
+  playlist: localState => localState.playlist,
 };

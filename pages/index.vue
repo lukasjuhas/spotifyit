@@ -57,6 +57,10 @@ export default {
       // clear tracks in store
       this.$store.commit('clearTracks');
 
+      // clear previous playlist stuff
+      this.$store.commit('clearPlaylist');
+
+      // go ahead to auth as first step
       this.$store.dispatch('auth');
     },
   },

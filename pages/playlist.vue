@@ -65,6 +65,20 @@
           {{ playlistUrl }}
         </a>
       </div>
+
+
+      <dir class="p-8">
+        <div class="pb-4">
+          or
+        </div>
+
+        <nuxt-link
+          to="/"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Do a new search
+        </nuxt-link>
+      </dir>
     </div>
   </div>
 </template>
@@ -82,7 +96,9 @@ export default {
 
   mounted() {
     this.items = this.$store.getters.tracks;
-    this.playlistUrl = this.$store.getters.playlist.external_urls.spotify;
+    if (Object.values(this.$store.getters.playlist).length) {
+      this.playlistUrl = this.$store.getters.playlist.external_urls.spotify;
+    }
   },
 
   methods: {

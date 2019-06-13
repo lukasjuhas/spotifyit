@@ -20,7 +20,7 @@
               border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none
               focus:bg-white focus:border-gray-500"
             type="text"
-            placeholder="I love you Honeybear"
+            placeholder="I would love to work with you"
           >
         </div>
 
@@ -53,6 +53,9 @@ export default {
     submit() {
       // save the query
       this.$store.commit('query', this.text);
+
+      // clear stash
+      this.$store.commit('clearPopped');
 
       // clear tracks in store
       this.$store.commit('clearTracks');

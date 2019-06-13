@@ -18,12 +18,15 @@ export default {
       return params;
     });
 
-    console.log('params', params);
     await this.$store.commit('code', params.access_token);
 
     this.$nextTick(() => {
-      this.$toast.success('Successfully authenticated');
-      this.$router.push('/');
+      // todo: sort this out cos for some reason redirect breaks the
+      // token assignment
+      setTimeout(() => {
+        this.$toast.success('Successfully authenticated');
+        this.$router.push('/');
+      }, 3000);
     });
   },
 };

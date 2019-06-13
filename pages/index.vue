@@ -102,7 +102,6 @@ export default {
   methods: {
     submit() {
       this.$store.dispatch('auth');
-      // this.$store.dispatch('search', this.text);
     },
 
     search() {

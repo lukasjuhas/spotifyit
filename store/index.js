@@ -116,8 +116,7 @@ export const actions = {
 
       return track;
     } catch (err) {
-      console.log(err);
-      return err;
+      throw new Error(err.response.data.error.message);
     }
   },
 };

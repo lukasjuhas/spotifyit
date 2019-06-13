@@ -57,6 +57,8 @@
 
 <script>
 export default {
+  middleware: ['tracks'],
+
   data() {
     return {
       items: [],
@@ -70,8 +72,13 @@ export default {
   methods: {
     createPlaylist() {
       this.$store.dispatch('createPlaylist').then(() => {
-        this.$toast.success('Your playlist is here!');
-      });
+        this.$toast.success('Your playlist was created and added to your librabry.');
+        this.$toast.show('Adding tracks to the playlist...');
+
+        this.$store.dispatch('addTracksToPlaylist').then(() => {
+          this.$toast.success('Tracks added to your playlist.');
+        }).catch(e => this.$toast.error(e));
+      }).catch(e => this.$toast.error(e));
     },
   },
 };

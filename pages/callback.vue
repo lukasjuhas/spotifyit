@@ -21,6 +21,7 @@ export default {
     await this.$store.commit('code', params.access_token);
 
     this.$nextTick(() => {
+      this.$toast.success('Successfully authenticated');
       this.$router.push('/');
     });
   },

@@ -66,6 +66,9 @@ export default {
       // do a search
       this.$store.dispatch('search', this.text).then(() => {
         console.log('I\'m done!');
+        this.$toast.success('I\'m done!');
+      }).catch((e) => {
+        this.$toast.error(e);
       });
     },
   },

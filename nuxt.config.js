@@ -43,7 +43,23 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
+    '@nuxtjs/toast',
   ],
+
+  toast: {
+    position: 'top-center',
+    duration: 3000,
+    keepOnHover: true,
+    // register: [ // Register custom toasts
+    //   {
+    //     name: 'my-error',
+    //     message: 'Oops...Something went wrong',
+    //     options: {
+    //       type: 'error',
+    //     },
+    //   },
+    // ],
+  },
 
   /*
    ** Axios module configuration

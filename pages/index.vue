@@ -53,10 +53,6 @@ export default {
     };
   },
 
-  mounted() {
-    console.log(this.$store.state);
-  },
-
   methods: {
     submit() {
       this.$store.dispatch('auth');
@@ -64,7 +60,13 @@ export default {
     },
 
     search() {
-      this.$store.dispatch('search', this.text);
+      // clear tracks in store
+      this.$store.commit('clearTracks');
+
+      // do a search
+      this.$store.dispatch('search', this.text).then(() => {
+        console.log('I\'m done!');
+      });
     },
   },
 };

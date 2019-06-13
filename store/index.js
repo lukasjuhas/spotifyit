@@ -16,6 +16,11 @@ const getTrack = (response, query) => {
     // take the first one
     const track = tracks[0];
 
+    // if it's not close enough result, just return null to trigger a new search
+    if (track.levenshteinDistance > 5) {
+      return null;
+    }
+
     return track;
   }
 

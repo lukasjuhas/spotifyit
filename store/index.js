@@ -32,6 +32,8 @@ const getTrack = (response, query) => {
 
 export const state = () => ({
   code: null,
+  me: {},
+  query: null,
   tracks: [],
   popped: [],
   playlist: null,
@@ -40,6 +42,12 @@ export const state = () => ({
 export const mutations = {
   code(localState, code) {
     localState.code = code;
+  },
+  me(localState, me) {
+    localState.me = me;
+  },
+  query(localState, query) {
+    localState.query = query;
   },
   track(localState, track) {
     localState.tracks.push(track);
@@ -73,6 +81,10 @@ export const actions = {
   },
 
   async search(ctx, query) {
+    if (!query) {
+      return null;
+    }
+
     // Removes everything except alphanumeric characters and whitespace,
     // then collapses multiple adjacent characters to single spaces.
     const cleanQuery = query.replace(/[^\w\s]|_/g, '').replace(/\s+/g, ' ');
@@ -127,6 +139,22 @@ export const actions = {
     }
   },
 
+  async me(ctx) {
+    try {
+      const response = await this.$axios.$get(
+        'https://api.spotify.com/v1/me',
+        {
+          headers: { Authorization: `Bearer ${ctx.state.code}` },
+        },
+      );
+
+      ctx.commit('me', response);
+      console.log('me', response);
+    } catch (error) {
+      throw new Error(error.response.data.error.message);
+    }
+  },
+
   async createPlaylist(ctx) {
     try {
       const response = await this.$axios.$get(
@@ -152,4 +180,5 @@ export const actions = {
 
 export const getters = {
   tracks: tracksState => tracksState.tracks,
+  query: queryState => queryState.query,
 };

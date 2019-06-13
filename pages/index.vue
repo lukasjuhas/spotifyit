@@ -34,16 +34,8 @@
         </div>
       </form>
 
-      <button
-        type="button"
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        @click="search"
-      >
-        Search
-      </button>
-
       <div
-        v-if="items"
+        v-if="items.length"
         class="rounded-lg bg-white shadow-xl max-w-lg mx-auto mt-4 py-2"
       >
         <h3 class="text-xl text-gray-900 leading-tightp p-2">
@@ -95,26 +87,23 @@ export default {
   data() {
     return {
       text: null,
-      items: null,
+      items: [],
     };
+  },
+
+  mounted() {
+    this.items = this.$store.getters.tracks;
   },
 
   methods: {
     submit() {
-      this.$store.dispatch('auth');
-    },
+      // save the query
+      this.$store.commit('query', this.text);
 
-    search() {
       // clear tracks in store
       this.$store.commit('clearTracks');
 
-      // do a search
-      this.$store.dispatch('search', this.text).then(() => {
-        this.$toast.success('I\'m done!');
-        this.items = this.$store.getters.tracks;
-      }).catch((e) => {
-        this.$toast.error(e);
-      });
+      this.$store.dispatch('auth');
     },
 
     createPlaylist() {

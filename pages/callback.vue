@@ -24,8 +24,19 @@ export default {
       // todo: sort this out cos for some reason redirect breaks the
       // token assignment
       setTimeout(() => {
-        this.$toast.success('Successfully authenticated');
-        this.$router.push('/');
+        this.$store.dispatch('me').then(() => {
+          this.$toast.success('Successfully authenticated');
+
+          // do a search
+          this.$store.dispatch('search', this.$store.getters.query).then(() => {
+            this.$toast.success('I\'m done!');
+
+            this.$router.push('/');
+          }).catch((e) => {
+            this.$toast.error(e);
+            this.$router.push('/');
+          });
+        });
       }, 3000);
     });
   },

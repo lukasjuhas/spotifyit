@@ -48,17 +48,8 @@ export default {
 
   toast: {
     position: 'top-center',
-    duration: 3000,
+    duration: 5000,
     keepOnHover: true,
-    // register: [ // Register custom toasts
-    //   {
-    //     name: 'my-error',
-    //     message: 'Oops...Something went wrong',
-    //     options: {
-    //       type: 'error',
-    //     },
-    //   },
-    // ],
   },
 
   /*

@@ -42,14 +42,17 @@
         Search
       </button>
 
-      <div class="rounded-lg bg-white shadow-xl max-w-lg mx-auto mt-4 py-2">
+      <div
+        v-if="items"
+        class="rounded-lg bg-white shadow-xl max-w-lg mx-auto mt-4 py-2"
+      >
         <h3 class="text-xl text-gray-900 leading-tightp p-2">
           Your playlist:
         </h3>
 
         <ul>
           <li
-            v-for="(item, key) in $store.getters['tracks']"
+            v-for="(item, key) in items"
             :key="key"
             class="flex p-2"
           >
@@ -92,6 +95,7 @@ export default {
   data() {
     return {
       text: null,
+      items: null,
     };
   },
 
@@ -108,6 +112,7 @@ export default {
       // do a search
       this.$store.dispatch('search', this.text).then(() => {
         this.$toast.success('I\'m done!');
+        this.items = this.$store.getters.tracks;
       }).catch((e) => {
         this.$toast.error(e);
       });

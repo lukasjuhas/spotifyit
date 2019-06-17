@@ -1,9 +1,7 @@
 import createPersistedState from 'vuex-persistedstate';
 
 export default ({ store }) => {
-  window.onNuxtReady(() => {
-    createPersistedState({
-      key: 'spotifyit',
-    })(store);
-  });
+  createPersistedState({
+    key: 'spotifyit',
+  })(store);
 };

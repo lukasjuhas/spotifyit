@@ -46,7 +46,7 @@ const getTrack = (response, query) => {
 };
 
 export const state = () => ({
-  code: null,
+  token: null,
   authState: null,
   me: {},
   query: null,
@@ -65,7 +65,7 @@ export const mutations = {
   },
   clear(localState) {
     localState.authState = null;
-    localState.code = null;
+    localState.token = null;
     localState.me = {};
     localState.query = null;
     localState.tracks = [];
@@ -73,8 +73,8 @@ export const mutations = {
     localState.playlist = {};
     localState.playlistSnapshotId = null;
   },
-  code(localState, code) {
-    localState.code = code;
+  setToken(localState, token) {
+    localState.token = token;
   },
   me(localState, me) {
     localState.me = me;
@@ -108,21 +108,24 @@ export const mutations = {
 
 export const actions = {
   async auth(ctx) {
-    const authState = generateRandomString(16);
-
-    ctx.commit('setAuthState', authState);
+    await ctx.dispatch('initAuthState');
 
     const params = {
       response_type: 'token',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: 'playlist-modify-private playlist-modify-public',
       redirect_uri: process.env.SPOTIFY_REDIRECT_URL,
-      state: authState,
+      state: ctx.state.authState,
     };
 
     const urlParams = Object.entries(params).map(([key, val]) => `${key}=${val}`).join('&');
 
     window.location = `https://accounts.spotify.com/authorize?${urlParams}`;
+  },
+
+  initAuthState({ commit }) {
+    const authState = generateRandomString(16);
+    commit('setAuthState', authState);
   },
 
   async search(ctx, query) {
@@ -143,7 +146,7 @@ export const actions = {
             q: cleanQuery,
             type: 'track',
           },
-          headers: { Authorization: `Bearer ${ctx.state.code}` },
+          headers: { Authorization: `Bearer ${ctx.state.token}` },
         },
       );
 
@@ -189,7 +192,7 @@ export const actions = {
       const response = await this.$axios.$get(
         'https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/me',
         {
-          headers: { Authorization: `Bearer ${ctx.state.code}` },
+          headers: { Authorization: `Bearer ${ctx.state.token}` },
         },
       );
 
@@ -209,7 +212,7 @@ export const actions = {
         },
         {
           headers: {
-            Authorization: `Bearer ${ctx.state.code}`,
+            Authorization: `Bearer ${ctx.state.token}`,
           },
         },
       );
@@ -231,7 +234,7 @@ export const actions = {
         },
         {
           headers: {
-            Authorization: `Bearer ${ctx.state.code}`,
+            Authorization: `Bearer ${ctx.state.token}`,
           },
         },
       );

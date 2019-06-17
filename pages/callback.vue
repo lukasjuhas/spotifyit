@@ -22,7 +22,7 @@ export default {
     const { state } = params;
     const token = params.access_token;
 
-    await this.$store.commit('code', token);
+    await this.$store.commit('setToken', token);
 
     this.$nextTick(() => {
       if (token && (state == null || state !== this.$store.state.authState)) {

@@ -81,7 +81,7 @@ export const actions = {
       response_type: 'token',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: 'playlist-modify-private playlist-modify-public',
-      redirect_uri: 'http://localhost:3000/search/',
+      redirect_uri: process.env.SPOTIFY_REDIRECT_URL,
     };
 
     const urlParams = Object.entries(params).map(([key, val]) => `${key}=${val}`).join('&');

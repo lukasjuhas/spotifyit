@@ -36,9 +36,9 @@ export default {
             this.$toast.error(e);
             this.$router.push('/');
           });
-        }).catch((e) => {
-          this.$toast.error(e);
-          this.$router.push('/');
+        }).catch(() => {
+          // this.$toast.error(e);
+          this.$store.dispatch('auth');
         });
       }, 3000);
     });

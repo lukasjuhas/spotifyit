@@ -38,9 +38,10 @@ export default {
         });
       }).catch((e) => {
         // clear everything
-        this.$store.commit('clear');
         this.$toast.error(e);
-        this.$router.push('/');
+        this.$toast.show('Re-authenticating');
+        this.$store.commit('clear');
+        this.$store.dispatch('auth');
       });
     }, 3000);
   },

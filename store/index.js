@@ -164,12 +164,12 @@ export const actions = {
     }
   },
 
-  async createPlaylist(ctx) {
+  async createPlaylist(ctx, name) {
     try {
       const response = await this.$axios.$post(
         `https://api.spotify.com/v1/users/${ctx.state.me.id}/playlists`,
         {
-          name: 'Greetings from Lukas',
+          name,
           description: 'Playlist generated using spotifyit.io',
         },
         {

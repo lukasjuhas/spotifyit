@@ -14,6 +14,20 @@
         v-if="items.length"
         class="rounded-lg bg-white shadow-xl max-w-lg mx-auto mt-4 py-2 mb-6"
       >
+        <div class="p-2 pt-0">
+          <input
+            v-if="items.length && !playlistUrl"
+            v-model="playlistName"
+            class="appearance-none block w-full bg-white text-gray-700 border
+              border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none
+              focus:bg-white focus:border-gray-500"
+            type="text"
+            required
+            placeholder="Enter playlist title... e.g. Greetings from John"
+            :class="{'border-red-500 focus:border-red-500': error}"
+          >
+        </div>
+
         <ul>
           <li
             v-for="(item, key) in items"
@@ -192,7 +206,15 @@ export default {
     return {
       items: [],
       playlistUrl: null,
+      playlistName: null,
+      error: false,
     };
+  },
+
+  watch: {
+    playlistName() {
+      this.error = false;
+    },
   },
 
   mounted() {
@@ -204,7 +226,13 @@ export default {
 
   methods: {
     createPlaylist() {
-      this.$store.dispatch('createPlaylist').then(() => {
+      if (!this.playlistName) {
+        this.error = true;
+
+        return false;
+      }
+
+      return this.$store.dispatch('createPlaylist', this.playlistName).then(() => {
         this.$toast.success('Your playlist was created and added to your librabry.');
         this.$toast.show('Adding tracks to the playlist...');
 

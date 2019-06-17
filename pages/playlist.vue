@@ -24,7 +24,7 @@
             type="text"
             required
             placeholder="Enter playlist title... e.g. Greetings from John"
-            :class="{'border-red-500 focus:border-red-500': error}"
+            :class="{'border-red-500 focus:border-red-500 bg-red-100': error}"
           >
         </div>
 

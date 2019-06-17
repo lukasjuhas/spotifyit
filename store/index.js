@@ -1,5 +1,19 @@
 import leven from 'leven';
 
+/**
+ * Generates a random string containing numbers and letters
+ * @param  {number} length The length of the string
+ * @return {string} The generated string
+ */
+function generateRandomString(length) {
+  let text = '';
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i += 1) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+}
+
 const getTrack = (response, query) => {
   if (response.tracks.items.length) {
     // take the important parts and calculate levensthein distance
@@ -33,6 +47,7 @@ const getTrack = (response, query) => {
 
 export const state = () => ({
   code: null,
+  authState: null,
   me: {},
   query: null,
   tracks: [],
@@ -42,7 +57,14 @@ export const state = () => ({
 });
 
 export const mutations = {
+  setAuthState(localState, value) {
+    localState.authState = value;
+  },
+  clearAuthState(localState) {
+    localState.authState = null;
+  },
   clear(localState) {
+    localState.authState = null;
     localState.code = null;
     localState.me = {};
     localState.query = null;
@@ -85,17 +107,28 @@ export const mutations = {
 };
 
 export const actions = {
-  async auth() {
+  async auth(ctx) {
+    const authState = generateRandomString(16);
+
+    console.log('ctx.state.authState', ctx.state.authState);
+
+    ctx.commit('setAuthState', authState);
+
     const params = {
       response_type: 'token',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: 'playlist-modify-private playlist-modify-public',
       redirect_uri: process.env.SPOTIFY_REDIRECT_URL,
+      state: authState,
     };
+
+    console.log('ctx.state.authState', ctx.state.authState);
 
     const urlParams = Object.entries(params).map(([key, val]) => `${key}=${val}`).join('&');
 
-    window.location = `https://accounts.spotify.com/authorize?${urlParams}`;
+    setTimeout(() => {
+      window.location = `https://accounts.spotify.com/authorize?${urlParams}`;
+    }, 5000);
   },
 
   async search(ctx, query) {
@@ -222,4 +255,5 @@ export const getters = {
   tracks: localState => localState.tracks,
   query: localState => localState.query,
   playlist: localState => localState.playlist,
+  authState: localState => localState.authState,
 };

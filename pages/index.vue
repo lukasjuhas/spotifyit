@@ -81,6 +81,9 @@ export default {
       // save the query
       this.$store.commit('query', this.text);
 
+      // clear auth state
+      this.$store.commit('clearAuthState');
+
       // clear stash
       this.$store.commit('clearPopped');
 

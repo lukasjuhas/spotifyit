@@ -38,7 +38,7 @@ export default {
         });
       }).catch((e) => {
         this.$toast.error(e);
-        // this.$store.dispatch('auth');
+        this.$store.dispatch('auth');
       });
     }, 3000);
   },

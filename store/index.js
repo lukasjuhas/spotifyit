@@ -101,7 +101,7 @@ export const actions = {
     try {
       // to the request
       const response = await this.$axios.$get(
-        'https://api.spotify.com/v1/search',
+        'https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/search',
         {
           params: {
             q: cleanQuery,
@@ -149,14 +149,16 @@ export const actions = {
   },
 
   async me(ctx) {
+    console.log('init me');
     try {
       const response = await this.$axios.$get(
-        'https://api.spotify.com/v1/me',
+        'https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/me',
         {
           headers: { Authorization: `Bearer ${ctx.state.code}` },
         },
       );
 
+      console.log('me', response);
       ctx.commit('me', response);
       console.log('me', response);
     } catch (error) {
@@ -167,7 +169,7 @@ export const actions = {
   async createPlaylist(ctx, name) {
     try {
       const response = await this.$axios.$post(
-        `https://api.spotify.com/v1/users/${ctx.state.me.id}/playlists`,
+        `https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/users/${ctx.state.me.id}/playlists`,
         {
           name,
           description: 'Playlist generated using spotifyit.io',
@@ -190,7 +192,7 @@ export const actions = {
   async addTracksToPlaylist(ctx) {
     try {
       const response = await this.$axios.$post(
-        `https://api.spotify.com/v1/playlists/${ctx.state.playlist.id}/tracks`,
+        `https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/playlists/${ctx.state.playlist.id}/tracks`,
         {
           uris: ctx.state.tracks.map(item => item.uri),
         },

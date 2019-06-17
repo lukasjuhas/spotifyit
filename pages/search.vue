@@ -10,7 +10,7 @@
 export default {
   async mounted() {
     const hashes = this.$route.hash.replace('#', '').slice(this.$route.hash.indexOf('?') + 1).split('&');
-    console.log('hashes', hashes);
+
     const params = {};
     hashes.map((hash) => {
       const [key, val] = hash.split('=');
@@ -19,32 +19,28 @@ export default {
       return params;
     });
 
-    console.log('params', params);
-
     await this.$store.commit('code', params.access_token);
 
-    this.$nextTick(() => {
-      // todo: sort this out cos for some reason redirect breaks the
-      // token assignment
-      setTimeout(() => {
-        this.$store.dispatch('me').then(() => {
-          this.$toast.success('Successfully authenticated');
+    // todo: sort this out cos for some reason redirect breaks the
+    // token assignment
+    await setTimeout(async () => {
+      await this.$store.dispatch('me').then(() => {
+        this.$toast.success('Successfully authenticated');
 
-          // do a search
-          this.$store.dispatch('search', this.$store.getters.query).then(() => {
-            this.$toast.success('All done!');
+        // do a search
+        this.$store.dispatch('search', this.$store.getters.query).then(() => {
+          this.$toast.success('All done!');
 
-            this.$router.push('/playlist');
-          }).catch((e) => {
-            this.$toast.error(e);
-            this.$router.push('/');
-          });
+          this.$router.push('/playlist');
         }).catch((e) => {
           this.$toast.error(e);
-          // this.$store.dispatch('auth');
+          this.$router.push('/');
         });
-      }, 3000);
-    });
+      }).catch((e) => {
+        this.$toast.error(e);
+        // this.$store.dispatch('auth');
+      });
+    }, 3000);
   },
 };
 </script>

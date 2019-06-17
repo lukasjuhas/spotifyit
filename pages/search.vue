@@ -10,6 +10,7 @@
 export default {
   async mounted() {
     const hashes = this.$route.hash.replace('#', '').slice(this.$route.hash.indexOf('?') + 1).split('&');
+    console.log('hashes', hashes);
     const params = {};
     hashes.map((hash) => {
       const [key, val] = hash.split('=');
@@ -17,6 +18,8 @@ export default {
 
       return params;
     });
+
+    console.log('params', params);
 
     await this.$store.commit('code', params.access_token);
 

@@ -50,6 +50,17 @@
         </div>
       </form>
     </div>
+
+    <div class="text-gray-500 text-sm italic p-10">
+      Please note this project is in beta version and the results
+      might not be great for some of the terms and sentences. Enjoy!
+      <br>
+      <a
+        class="text-gray-600"
+        href="https://itsluk.as"
+        target="_blank"
+      >by Lukas Juhas</a>
+    </div>
   </div>
 </template>
 

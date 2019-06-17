@@ -50,6 +50,9 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/toast',
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-142301276-1',
+    }],
   ],
 
   toast: {

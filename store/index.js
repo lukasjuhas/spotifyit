@@ -110,8 +110,6 @@ export const actions = {
   async auth(ctx) {
     const authState = generateRandomString(16);
 
-    console.log('ctx.state.authState', ctx.state.authState);
-
     ctx.commit('setAuthState', authState);
 
     const params = {
@@ -122,13 +120,9 @@ export const actions = {
       state: authState,
     };
 
-    console.log('ctx.state.authState', ctx.state.authState);
-
     const urlParams = Object.entries(params).map(([key, val]) => `${key}=${val}`).join('&');
 
-    setTimeout(() => {
-      window.location = `https://accounts.spotify.com/authorize?${urlParams}`;
-    }, 5000);
+    window.location = `https://accounts.spotify.com/authorize?${urlParams}`;
   },
 
   async search(ctx, query) {

@@ -28,12 +28,17 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     { src: '~/plugins/localStorage.js', ssr: false },
+    { src: '@/plugins/components.js', ssr: false },
+    '~/plugins/fontawesome.js',
   ],
   /*
    ** Nuxt.js modules
@@ -69,6 +74,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {},
+    extend() {},
   },
 };

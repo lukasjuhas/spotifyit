@@ -49,8 +49,15 @@
         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         @click="createPlaylist"
       >
-        Create my playlist
+        Create this playlist
       </button>
+
+      <div
+        v-if="items.length && !playlistUrl"
+        class="text-sm italic p-2"
+      >
+        This playlist will be saved to your librabry.
+      </div>
 
       <div
         v-if="playlistUrl"
@@ -64,6 +71,100 @@
         >
           {{ playlistUrl }}
         </a>
+
+        <h4 class="text-lg text-bold text-gray-900 my-4">
+          Share your playlist:
+        </h4>
+        <social-sharing
+          :url="playlistUrl"
+          title="Greetings from Lukas"
+          description="Playlist generated using spotifyit.io"
+          inline-template
+          class="p4 m-4"
+        >
+          <div>
+            <network
+              network="email"
+            >
+              <font-awesome-icon
+                icon="envelope"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="facebook"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'facebook']"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="googleplus"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'google-plus']"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="linkedin"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'linkedin']"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="reddit"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'reddit']"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="skype"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'skype']"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="sms"
+            >
+              <font-awesome-icon
+                icon="comments"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="telegram"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'telegram']"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="twitter"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'twitter']"
+                class="cursor-pointer"
+              />
+            </network>
+            <network
+              network="whatsapp"
+            >
+              <font-awesome-icon
+                :icon="['fab', 'whatsapp']"
+                class="cursor-pointer"
+              />
+            </network>
+          </div>
+        </social-sharing>
       </div>
 
 

@@ -37,8 +37,10 @@ export default {
           this.$router.push('/');
         });
       }).catch((e) => {
+        // clear everything
+        this.$store.commit('clear');
         this.$toast.error(e);
-        this.$store.dispatch('auth');
+        this.$router.push('/');
       });
     }, 3000);
   },

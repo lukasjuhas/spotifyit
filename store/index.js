@@ -42,6 +42,15 @@ export const state = () => ({
 });
 
 export const mutations = {
+  clear(localState) {
+    localState.code = null;
+    localState.me = {};
+    localState.query = null;
+    localState.tracks = [];
+    localState.popped = [];
+    localState.playlist = {};
+    localState.playlistSnapshotId = null;
+  },
   code(localState, code) {
     localState.code = code;
   },

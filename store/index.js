@@ -158,7 +158,6 @@ export const actions = {
   },
 
   async me(ctx) {
-    console.log('init me');
     try {
       const response = await this.$axios.$get(
         'https://cors-anywhere.herokuapp.com/https://api.spotify.com/v1/me',
@@ -167,9 +166,7 @@ export const actions = {
         },
       );
 
-      console.log('me', response);
       ctx.commit('me', response);
-      console.log('me', response);
     } catch (error) {
       throw new Error(error.response.data.error.message);
     }

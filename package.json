@@ -1,7 +1,7 @@
 {
   "name": "spotifyit",
   "version": "1.0.0",
-  "description": "Spotify my words into playlist.",
+  "description": "Convert sentences into a spotify playlist",
   "author": "Lukas Juhas",
   "private": true,
   "scripts": {

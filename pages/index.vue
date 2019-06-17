@@ -12,7 +12,7 @@
         Spotify It
       </h1>
       <h2 class="text-2xl">
-        Spotify my words into playlist.
+        Convert sentences into a spotify playlist.
       </h2>
     </div>
     <div class="container mx-auto p-4 max-w-lg">

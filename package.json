@@ -25,7 +25,7 @@
     "@nuxtjs/pwa": "^2.6.0",
     "@nuxtjs/toast": "^3.2.1",
     "leven": "^3.1.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
